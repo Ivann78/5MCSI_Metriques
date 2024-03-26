@@ -4,30 +4,48 @@
     <meta charset="UTF-8" />
     <title>Commits</title>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load("current", {packages:["corechart"]});
-      google.charts.setOnLoadCallback(drawChart);
-      function drawChart(api_commits_date) {
-        var data = google.visualization.arrayToDataTable();
-
-        var options = {
-          title: 'Nombre de commits',
-          legend: { position: 'none' },
-        };
-
-        var chart = new google.visualization.Histogram(document.getElementById('chart_div'));
-        chart.draw(data, options);
-      }
-
-        fetch('/github/')
-        .then(response => response.json())
-        .then(api_commits_date => {
-            console.log(api_commits_date)
-            drawChart(api_commits_date);
-        })
-    </script>
   </head>
   <body>
     <div id="chart_div"></div>
+    <script>
+        google.charts.load('current', {packages: ['corechart', 'bar']});
+        google.charts.setOnLoadCallback(drawMultSeries);
+
+        function drawMultSeries() {
+            function drawChart(api_commits_date) {
+                var data = new google.visualization.DataTable();
+
+                data.addColumn('string', 'Date');
+                data.addColumn('number', 'Température');
+
+                api_commits_date.results.forEach(entry => {
+                    var date = new Date(entry.Jour * 1000);
+                    data.addRow([date.toLocaleDateString(), entry.api_commits_date]);
+                });
+
+                var options = {
+                    title: 'Évolution des températures de la ville de Tawarano',
+                    hAxis: {
+                    title: 'Temps',
+                    format: 'h:mm a',
+                    viewWindow: {
+                        min: [7, 30, 0],
+                        max: [17, 30, 0]
+                    }
+                    }
+                };
+
+                var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+                chart.draw(data, options);
+            }
+
+            fetch('/github/')
+            .then(response => response.json())
+            .then(api_commits_date => {
+                console.log(api_commits_date)
+                drawChart(api_commits_date);
+            })
+        }
+    </script>
   </body>
 </html>

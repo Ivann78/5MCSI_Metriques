@@ -44,7 +44,7 @@
             fetch('/extract-minutes/2024-03-26T10:10:10Z')
             .then(response => response.json())
             .then(temp => {
-                print(temp)
+                console.log(temp)
                 drawChart(temp);
             })
         }

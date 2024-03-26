@@ -40,16 +40,30 @@
           ['Velociraptor (swift robber)', 1.8]]);
 
         var options = {
-          title: 'Lengths of dinosaurs, in meters',
+          title: 'Nombre de commits',
           legend: { position: 'none' },
         };
 
         var chart = new google.visualization.Histogram(document.getElementById('chart_div'));
         chart.draw(data, options);
       }
+
+        fetch('/github/')
+        .then(response => response.json())
+        .then(api_commits_date => {
+            console.log(api_commits_date)
+            drawChart(api_commits_date);
+
+            // fetch('/extract-minutes/' + api_commits_date)
+            // .then(response => response.json())
+            // .then(temp => {
+            //     console.log(temp)
+            //     // drawChart(temp);
+            // })
+        })
     </script>
   </head>
   <body>
-    <div id="chart_div" style="width: 900px; height: 500px;"></div>
+    <div id="chart_div"></div>
   </body>
 </html>

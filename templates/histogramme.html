@@ -16,9 +16,9 @@
             data.addColumn('string', 'Date');
             data.addColumn('number', 'Température');
 
-            data.results.forEach(entry => {
+            temp.results.forEach(entry => {
                 var date = new Date(entry.Jour * 1000);
-                dataTable.addRow([date.toLocaleDateString(), entry.temp]);
+                data.addRow([date.toLocaleDateString(), entry.temp]);
             });
 
             // data.addRows([
@@ -53,9 +53,9 @@
             chart.draw(data, options);
 
             fetch('/tawarano/')
-                .then(response => response.json())
-                .then(data => {
-                drawChart(data);
+            .then(response => response.json())
+            .then(temp => {
+                drawChart(temp);
             })
         }
     </script>

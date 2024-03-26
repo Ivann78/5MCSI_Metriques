@@ -46,7 +46,7 @@ def github():
     
     for commit in json_content:
         dt_value = commit.get('commit').get('author').get('date')
-        date_object = datetime.strptime(date, '%Y-%m-%dT%H:%M:%SZ')
+        date_object = datetime.strptime(dt_value, '%Y-%m-%dT%H:%M:%SZ')
         minute = date_object.strftime('%Y-%m-%d %H:%M')
         commit_counts[minute] = commit_counts.get(minute, 0) + 1
         

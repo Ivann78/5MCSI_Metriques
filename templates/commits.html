@@ -37,8 +37,9 @@
             // Récupération de données depuis notre API /tawarano/
             fetch('//extract-minutes/<date_string>')
             .then(response => response.json())
-            .then(data => {
-                drawChart(data);
+            .then(temps => {
+                print(temps)
+                drawChart(temps);
             })
         }
     </script>

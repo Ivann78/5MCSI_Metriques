@@ -43,7 +43,7 @@ def github():
     json_content = json.loads(raw_content.decode('utf-8'))
     results = []
     for list_element in json_content:
-        dt_value = list_element.get('date')
+        dt_value = list_element.get('commit').get('author').get('date')
         results.append({'date': dt_value})
     return jsonify(results=results)
 

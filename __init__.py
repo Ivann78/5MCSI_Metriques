@@ -44,7 +44,7 @@ def github():
     results = []
     for list_element in json_content:
         dt_value = list_element.get('date')
-        results.append({'temp': dt_value})
+        results.append({'date': dt_value})
     return jsonify(results=results)
 
 @app.route('/extract-minutes/<date_string>')

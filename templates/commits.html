@@ -12,6 +12,13 @@
         google.charts.setOnLoadCallback(drawMultSeries);
 
         function drawMultSeries() {
+            fetch('/github/')
+            .then(response => response.json())
+            .then(api_commits_date => {
+                console.log(api_commits_date)
+                drawChart(api_commits_date);
+            })
+            
             function drawChart(api_commits_date) {
                 var data = new google.visualization.DataTable();
 
@@ -39,12 +46,7 @@
                 chart.draw(data, options);
             }
 
-            fetch('/github/')
-            .then(response => response.json())
-            .then(api_commits_date => {
-                console.log(api_commits_date)
-                drawChart(api_commits_date);
-            })
+            
         }
     </script>
   </body>

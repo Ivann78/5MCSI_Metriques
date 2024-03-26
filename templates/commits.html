@@ -12,7 +12,7 @@
         google.charts.setOnLoadCallback(drawMultSeries);
 
         function drawMultSeries() {
-            function drawChart(temp) {
+            function drawChart(api_commits_date) {
                 var data = new google.visualization.DataTable();
 
                 data.addColumn('string', 'Date');
@@ -46,7 +46,7 @@
             .then(response => response.json())
             .then(api_commits_date => {
                 console.log(api_commits_date)
-                // drawChart(api_commits);
+                drawChart(api_commits_date);
 
                 // fetch('/extract-minutes/' + api_commits_date)
                 // .then(response => response.json())

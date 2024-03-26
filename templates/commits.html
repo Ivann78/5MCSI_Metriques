@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Histogramme</title>
+    <title>Commits</title>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   </head>
   <body>
@@ -15,7 +15,7 @@
                 var data = new google.visualization.DataTable();
 
                 data.addColumn('string', 'Date');
-                data.addColumn('number', 'Température');
+                data.addColumn('number', 'Commits');
 
                 temp.results.forEach(entry => {
                     var date = new Date(entry.Jour * 1000);
@@ -23,7 +23,7 @@
                 });
 
                 var options = {
-                    title: 'Évolution des températures de la ville de Tawarano',
+                    title: 'Nombre de commits',
                     hAxis: {
                     title: 'Temps',
                     format: 'h:mm a',

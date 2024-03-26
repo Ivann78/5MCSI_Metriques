@@ -1,45 +1,50 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Commits</title>
+    <title>Histogramme</title>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   </head>
   <body>
     <div id="chart_div"></div>
     <script>
-        google.charts.load('current', { packages: ['corechart'] });
-        google.charts.setOnLoadCallback(drawBackgroundColor);
-        
-        function drawBackgroundColor() {
-            function drawChart(data) {
+        google.charts.load('current', {packages: ['corechart', 'bar']});
+        google.charts.setOnLoadCallback(drawMultSeries);
 
-                // Convertir les données récupérées en un tableau utilisable par Google Charts
-                var dataTable = new google.visualization.DataTable();
+        function drawMultSeries() {
+            function drawChart(temp) {
+                var data = new google.visualization.DataTable();
 
-                dataTable.addColumn('string', 'Date');
-                dataTable.addColumn('number', 'Valeur');
+                data.addColumn('string', 'Date');
+                data.addColumn('number', 'Température');
 
-                data.results.forEach(entry => {
-                var date = new Date(entry.Jour * 1000);
-                dataTable.addRow([date.toLocaleDateString(), entry.temp]);
+                temp.results.forEach(entry => {
+                    var date = new Date(entry.Jour * 1000);
+                    data.addRow([date.toLocaleDateString(), entry.temp]);
                 });
 
-                // Configurer les options du graphique en ligne
                 var options = {
-                    title: 'Nombre de commits',
-                    curveType: 'function',
-                    legend: { position: 'bottom' }
+                    title: 'Évolution des températures de la ville de Tawarano',
+                    hAxis: {
+                    title: 'Temps',
+                    format: 'h:mm a',
+                    viewWindow: {
+                        min: [7, 30, 0],
+                        max: [17, 30, 0]
+                    }
+                    },
+                    vAxis: {
+                    title: 'Rating (scale of 1-10)'
+                    }
                 };
-                var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-                chart.draw(dataTable, options);
+
+                var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+                chart.draw(data, options);
             }
 
-            // Récupération de données depuis notre API /tawarano/
-            fetch('//extract-minutes/<date_string>')
+            fetch('/extract-minutes/2024-03-26T10:10:10Z')
             .then(response => response.json())
-            .then(temps => {
-                print(temps)
-                drawChart(temps);
+            .then(temp => {
+                drawChart(temp);
             })
         }
     </script>

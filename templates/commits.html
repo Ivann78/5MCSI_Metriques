@@ -41,11 +41,18 @@
                 chart.draw(data, options);
             }
 
-            fetch('/extract-minutes/2024-03-26T10:10:10Z')
+            fetch('/github/')
             .then(response => response.json())
-            .then(temp => {
-                console.log(temp)
-                drawChart(temp);
+            .then(api_commits => {
+                console.log(api_commits_date)
+                // drawChart(api_commits);
+
+                fetch('/extract-minutes/' + api_commits_date)
+                .then(response => response.json())
+                .then(temp => {
+                    console.log(temp)
+                    // drawChart(temp);
+                })
             })
         }
     </script>

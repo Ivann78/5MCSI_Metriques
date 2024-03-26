@@ -35,7 +35,17 @@ def mongraphique():
 def histogramme():
     return render_template("histogramme.html")
   
-  
+
+@app.route('/github/')
+def meteo():
+    response = urlopen('https://api.github.com/repos/Ivann78/5MCSI_Metriques/commits')
+    raw_content = response.read()
+    json_content = json.loads(raw_content.decode('utf-8'))
+    results = []
+    for list_element in json_content.get('list', []):
+        dt_value = list_element.get('date')
+    return jsonify(results=results)
+
 @app.route('/extract-minutes/<date_string>')
 def extract_minutes(date_string):
         date_object = datetime.strptime(date_string, '%Y-%m-%dT%H:%M:%SZ')

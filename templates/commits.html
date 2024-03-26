@@ -18,9 +18,9 @@
                 data.addColumn('string', 'Date');
                 data.addColumn('number', 'Commits');
 
-                temp.results.forEach(entry => {
+                api_commits_date.results.forEach(entry => {
                     var date = new Date(entry.Jour * 1000);
-                    data.addRow([date.toLocaleDateString(), entry.temp]);
+                    data.addRow([date.toLocaleDateString(), entry.api_commits_date]);
                 });
 
                 var options = {

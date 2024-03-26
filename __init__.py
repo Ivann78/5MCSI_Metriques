@@ -49,7 +49,7 @@ def github():
         date_object = datetime.strptime(dt_value, '%Y-%m-%dT%H:%M:%SZ')
         minute = date_object.strftime('%Y-%m-%d %H:%M')
         commit_counts[minute] = commit_counts.get(minute, 0) + 1
-        
+    
     return jsonify(commit_counts)
 
 
